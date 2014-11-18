@@ -135,12 +135,13 @@ public class SimplexOperation {
 			
 		}
 		return simplexTable;
-		
 	}
-	public void write()
+	public void write(String output)
 	{
+		
+
 		Writer writer=new Writer();
-		writer.open("out1.txt");
+		writer.open(output);
 		writer.printMatrix(simplexTable);
 		writer.close();
 		

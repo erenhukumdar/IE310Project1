@@ -92,7 +92,7 @@ public class Main {
 		// After initilization
 		SimplexOperation phase1=new SimplexOperation(n, m, Phase1in, isMaximization);
 		phase1.iterateSimplexPlan(phase1.findPivotRow(phase1.findPivotColumn()), phase1.findPivotColumn());
-		phase1.write();
+		phase1.write("out1.txt");
 		
 
 
