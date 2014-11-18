@@ -114,21 +114,26 @@ public class SimplexOperation {
 	public RealMatrix iterateSimplexPlan(int pivotRow,int pivotColumn)
 	{
 		double pivotValue=simplexTable.getEntry(pivotRow, pivotColumn);
-
+		RealVector pivotRowValues = simplexTable.getRowVector(pivotRow);
+		//divides all pivot row value with pivot value
+		simplexTable.setRowVector(pivotRow, pivotRowValues);
+		pivotRowValues.mapDivide(pivotValue);
+		
 		for (int i=0;i<=m;i++)
 		{
 			double myCoeff;
 			if (i!=pivotRow)
 			{
+			
 				//we are getting pivot value and pivot row vector
-				RealVector pivotRowValues = simplexTable.getRowVector(pivotRow);
-				//divides all pivot row value with pivot value
-				pivotRowValues.mapDivide(pivotValue);
+				 pivotRowValues = simplexTable.getRowVector(pivotRow);
+			
 				//now we start to gaussian row operations
 				//gets row vector and divide with coefficient which makes pivot column zero
 				RealVector myRowVector=simplexTable.getRowVector(i);
 				myCoeff=simplexTable.getEntry(i, pivotColumn);
-				myRowVector.subtract(pivotRowValues.mapMultiply(myCoeff));
+				pivotRowValues=pivotRowValues.mapMultiply(myCoeff);
+				myRowVector=myRowVector.subtract(pivotRowValues);
 				//assign again the main matrix
 				simplexTable.setRowVector(i, myRowVector);
 			}
