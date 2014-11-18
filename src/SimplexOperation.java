@@ -122,8 +122,9 @@ public class SimplexOperation {
 		double pivotValue=simplexTable.getEntry(pivotRow, pivotColumn);
 		RealVector pivotRowValues = simplexTable.getRowVector(pivotRow);
 		//divides all pivot row value with pivot value
+		pivotRowValues=pivotRowValues.mapDivide(pivotValue);
 		simplexTable.setRowVector(pivotRow, pivotRowValues);
-		pivotRowValues.mapDivide(pivotValue);
+		
 		
 		for (int i=0;i<=m;i++)
 		{
