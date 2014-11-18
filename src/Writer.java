@@ -1,4 +1,5 @@
 
+
 import java.io.PrintWriter;
 import org.apache.commons.math3.linear.RealMatrix;
 
@@ -50,19 +51,19 @@ public void open(String file)
 			   if(i==0)
 			   {
 				   writer.print("Row\t\tZ\t\t\t");   
-				   for (int k=0;k<numColumns-2;k++)
+				   for (int k=0;k<numColumns-1;k++)
 				   {
 				   writer.print("x"+(k+1)+"\t\t\t");	   
 				   }
 				   writer.print("RHS");
-				  writer.println();
-				  writer.print("--------------------");  //added for Row Z
-				  for (int k=0;k<numColumns-2;k++)
+				   writer.println();
+				   writer.print("--------------------");  //added for Row Z
+				  for (int k=0;k<numColumns-1;k++)
 				  {
-				  writer.print("------------");  //added for per x
+					  writer.print("------------");  //added for per x
 				  }
-				  writer.print("------------"); //added for RHS
-				  writer.println();
+				  	writer.print("------------"); //added for RHS
+				  	writer.println();
 			   }   
 		      for(int j = 0; j < numColumns; j++)
 		      {
@@ -72,7 +73,13 @@ public void open(String file)
 		    	  
 		    	  if (j==0)
 		    	  {
-		   		  writer.print(i+"\t\t");
+		    		 if(i==0)
+		    		 {
+		    			 writer.print(i+"\t\t1.000\t\t");
+		    		 }else
+		    		 {
+		    			 writer.print(i+"\t\t0.000\t\t");
+		    		 }
 		    	  }
 		    	  //writer.print(arr2d[i][j]+"  ");
 		    	  writer.printf("%.3f\t\t",arr2d[i][j]);
@@ -82,7 +89,7 @@ public void open(String file)
 		     {
 		    	 writer.println();
 				  writer.print("--------------------");  //added for Row Z
-				  for (int k=0;k<numColumns-2;k++)
+				  for (int k=0;k<numColumns-1;k++)
 				  {
 				  writer.print("------------");  //added for per x
 				  }
@@ -93,7 +100,7 @@ public void open(String file)
 		   }
 		   //System.out.println();	   
 			  writer.print("--------------------");  //added for Row Z
-			  for (int k=0;k<numColumns-2;k++)
+			  for (int k=0;k<numColumns-1;k++)
 			  {
 			  writer.print("------------");  //added for per x
 			  }
@@ -115,3 +122,4 @@ public void open(String file)
 	
 	
 }
+

@@ -57,11 +57,13 @@ public class PhaseIni {
 		Phase1=rowOperations(basicVariables[i],Phase1,m,n);
 	}
     // write Matrix Phase1
+	RealMatrix Phase1_withoutZ=Phase1.getSubMatrix(0,m,1,n+1);
+    
 	writer.open("out1ini.txt");
-	writer.printMatrix(Phase1);
+	writer.printMatrix(Phase1_withoutZ);  
 	writer.close();
 	
-	return Phase1;
+	return Phase1; //It returns Phase 1 Initial with Z and RHS value just like Assigment Paper
 	}
 	
 	public void basicVars(double[][] A,RealMatrix Phase0,int m,int n)
