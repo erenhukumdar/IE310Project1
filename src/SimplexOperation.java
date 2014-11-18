@@ -1,5 +1,7 @@
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
@@ -62,6 +64,7 @@ public class SimplexOperation {
 		int selectedVariable;
 		
 		RealVector zeroRow= simplexTable.getRowVector(0);
+		zeroRow = zeroRow.getSubVector(0, n);
 		if (isMaximization)
 		{
 			double minValue= zeroRow.getMinValue();
@@ -97,17 +100,20 @@ public class SimplexOperation {
 		myRHS=myRHS.ebeDivide(pivotValues);
 		//we need a sorted and unsorted arrays
 		double[] arrayOfRHS=myRHS.toArray();
-		
-		double[] arrayOfRHSSorted=myRHS.toArray();
-		Arrays.sort(arrayOfRHSSorted);
-		int index=0;
-		double minValue=arrayOfRHSSorted[index];
-		while (minValue<0)
+		double minValue=Double.MAX_VALUE;
+		int location=1;
+		for (int i=1;i<arrayOfRHS.length;i++)
 		{
-			index++;
-			minValue=arrayOfRHSSorted[index];			
+			if ((arrayOfRHS[i]<minValue) && (arrayOfRHS[i]>=0))
+			{
+				minValue=arrayOfRHS[i];
+				location=i;
+			}
+			
+			
 		}
-		return Arrays.binarySearch(arrayOfRHS, minValue);
+		
+		return location;
 
 	}
 	

@@ -86,7 +86,7 @@ public class Main {
 		
 		
 		// After initilization
-		SimplexOperation phase1=new SimplexOperation(n, m, Phase1in, false);
+		SimplexOperation phase1=new SimplexOperation(n, m, Phase1in, true);
 		phase1.iterateSimplexPlan(phase1.findPivotRow(phase1.findPivotColumn()), phase1.findPivotColumn());
 		phase1.iterateSimplexPlan(phase1.findPivotRow(phase1.findPivotColumn()), phase1.findPivotColumn());
 		phase1.write("out1.txt");
