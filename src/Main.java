@@ -54,14 +54,14 @@ public class Main {
 	//	SimplexOperation 
 		
 		
-		System.out.println("Variables");
-		System.out.println("n=" + String.valueOf(n));
-		System.out.println("m=" + String.valueOf(m));
-		System.out.println("Ct1=" + Arrays.deepToString(ct_1 ));
-		System.out.println("Ct2=" + Arrays.deepToString(ct_2));
-		System.out.println("A=" +  Arrays.deepToString(A));
-		System.out.println("b=" +  Arrays.toString(b));		
-		System.out.println("--------------------------------------");
+//		System.out.println("Variables");
+//		System.out.println("n=" + String.valueOf(n));
+//		System.out.println("m=" + String.valueOf(m));
+//		System.out.println("Ct1=" + Arrays.deepToString(ct_1 ));
+//		System.out.println("Ct2=" + Arrays.deepToString(ct_2));
+//		System.out.println("A=" +  Arrays.deepToString(A));
+//		System.out.println("b=" +  Arrays.toString(b));		
+//		System.out.println("--------------------------------------");
 		
 		
 		//RealMatrix matrixA = new Array2DRowRealMatrix(myReader.getA());
@@ -90,9 +90,10 @@ public class Main {
 		
 		
 		// After initilization
-		SimplexOperation phase1=new SimplexOperation(n, m, Phase1in, isMaximization);
-		phase1.iterateSimplexPlan(phase1.findPivotRow(phase1.findPivotColumn()), phase1.findPivotColumn());
+		SimplexOperation phase1=new SimplexOperation(n, m, Phase1in, false);
+		RealMatrix phase1Matrix= phase1.iterateSimplexPlan(phase1.findPivotRow(phase1.findPivotColumn()), phase1.findPivotColumn());
 		phase1.write("out1.txt");
+		
 		
 
 

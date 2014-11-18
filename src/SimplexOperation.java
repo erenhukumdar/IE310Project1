@@ -29,7 +29,7 @@ public class SimplexOperation {
 		this.isMaximization=isMaximization;
 		// there can be some bugs dueto the Z included into matrix. If there is a bug due to the z we should change write op.
 		//simplexTable=initMatrix;
-		simplexTable= initMatrix.getSubMatrix(0,m,1,n);
+		simplexTable= initMatrix.getSubMatrix(0,m,1,n+1);
 		
 	}
 	public void setSimplexOperation(int n,int m,RealMatrix phase,boolean isMaximization)
@@ -94,7 +94,7 @@ public class SimplexOperation {
 	{
 		RealVector pivotValues = simplexTable.getColumnVector(pivotIndex);
 		RealVector myRHS = simplexTable.getColumnVector(simplexTable.getColumnDimension()-1);
-		myRHS.ebeDivide(pivotValues);
+		myRHS=myRHS.ebeDivide(pivotValues);
 		//we need a sorted and unsorted arrays
 		double[] arrayOfRHS=myRHS.toArray();
 		
