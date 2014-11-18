@@ -49,6 +49,7 @@ public class Main {
 		double[][] ct_1=myReader.getCt_1();
 		double[][] ct_2=myReader.getCt_2();
 		double[][] A= myReader.getA();
+		boolean isMaximization = myReader.getIsMaximization();
 
 	//	SimplexOperation 
 		
@@ -83,12 +84,15 @@ public class Main {
 		
 		
 		// Question 2 Phase1 Initial
-		RealMatrix Phase1;
-		PhaseIni phase1=new PhaseIni();
-		Phase1=phase1.Create(n,m,A,b,ct_1);
-
-
+		RealMatrix Phase1in;
+		PhaseIni phase1in=new PhaseIni();
+		Phase1in=phase1in.Create(n,m,A,b,ct_1);
 		
+		
+		// After initilization
+		SimplexOperation phase1=new SimplexOperation(n, m, Phase1in, isMaximization);
+		phase1.iterateSimplexPlan(phase1.findPivotRow(phase1.findPivotColumn()), phase1.findPivotColumn());
+		phase1.write();
 		
 
 

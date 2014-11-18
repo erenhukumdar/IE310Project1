@@ -22,7 +22,16 @@ public class SimplexOperation {
 		this.m=m;
 		this.n=n;
 	}
-	
+	public SimplexOperation(int n,int m,RealMatrix initMatrix,boolean isMaximization)
+	{
+		this.m=m;
+		this.n=n;
+		this.isMaximization=isMaximization;
+		// there can be some bugs dueto the Z included into matrix. If there is a bug due to the z we should change write op.
+		//simplexTable=initMatrix;
+		simplexTable= initMatrix.getSubMatrix(0,m,1,n);
+		
+	}
 	
 	
 	public void rowOperation(int destinationRow,int operandRow,int coeff)
@@ -36,7 +45,7 @@ public class SimplexOperation {
 		
 	}
 	
-	public int findPivot()
+	public int findPivotColumn()
 	{
 		int selectedVariable;
 		
@@ -69,7 +78,7 @@ public class SimplexOperation {
 			
 		
 	}
-	public double findSmallestRatio(int pivotIndex)
+	public int findPivotRow(int pivotIndex)
 	{
 		RealVector pivotValues = simplexTable.getColumnVector(pivotIndex);
 		RealVector myRHS = simplexTable.getColumnVector(simplexTable.getColumnDimension()-1);
@@ -90,7 +99,7 @@ public class SimplexOperation {
 
 	}
 	
-	public void iterateSimplexPlan(int pivotRow,int pivotColumn)
+	public RealMatrix iterateSimplexPlan(int pivotRow,int pivotColumn)
 	{
 		double pivotValue=simplexTable.getEntry(pivotRow, pivotColumn);
 
@@ -113,6 +122,15 @@ public class SimplexOperation {
 			}
 			
 		}
+		return simplexTable;
+		
+	}
+	public void write()
+	{
+		Writer writer=new Writer();
+		writer.open("out1.txt");
+		writer.printMatrix(simplexTable);
+		writer.close();
 		
 	}
 	
