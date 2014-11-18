@@ -32,6 +32,18 @@ public class SimplexOperation {
 		simplexTable= initMatrix.getSubMatrix(0,m,1,n);
 		
 	}
+	public void setSimplexOperation(int n,int m,RealMatrix phase,boolean isMaximization)
+	{
+		//this function is temporary for Gorkem's work. One can use for setting phase1 matrix.
+		this.m=m;
+		this.n=n;
+		this.isMaximization=isMaximization;
+		// there can be some bugs dueto the Z included into matrix. If there is a bug due to the z we should change write op.
+		//simplexTable=initMatrix;
+		simplexTable=phase;
+		
+	}
+	
 	
 	
 	public void rowOperation(int destinationRow,int operandRow,int coeff)
