@@ -9,7 +9,7 @@ public class PhaseIni {
 	Writer writer=new Writer();
 	int[] basicVariables;
 
-	public void Create(int n, int m, double[][] A,double[] b,double[][] ct)
+	public RealMatrix Create(int n, int m, double[][] A,double[] b,double[][] ct)
 	{
 	basicVariables=new int [m];
 		//Create Simplex Tableu 
@@ -61,7 +61,7 @@ public class PhaseIni {
 	writer.printMatrix(Phase1);
 	writer.close();
 	
-	
+	return Phase1;
 	}
 	
 	public void basicVars(double[][] A,RealMatrix Phase0,int m,int n)
@@ -81,8 +81,6 @@ public class PhaseIni {
 		      }
 		}
 		
-		
-		
 		RealMatrix realIdentity= new Array2DRowRealMatrix(identityMatrix);
 		RealMatrix realA=new Array2DRowRealMatrix(A);
 		
@@ -97,7 +95,6 @@ public class PhaseIni {
 			if (realA.getColumnVector(j).equals(realIdentity.getColumnVector(i)))		
 			{
 				basicVariables[i]=j;	
-				System.out.println("n=" + String.valueOf(basicVariables[i]));
 			}
 			}	
 				
@@ -106,14 +103,8 @@ public class PhaseIni {
 	
 	
 	}	
-	
-	
-	
-	
-	
-	
-	
-	public RealMatrix rowOperations(int basicVar,RealMatrix Phase0,int m,int n)
+		
+public RealMatrix rowOperations(int basicVar,RealMatrix Phase0,int m,int n)
 	{
 	    
 		// in first table seek basic variable column
@@ -140,38 +131,11 @@ public class PhaseIni {
 		//double[] dummy=subtracter.getRow(0);
 		Phase0.setRowMatrix(0, Row0_Complete);
 		}
-		}
-		
-
-		
-		
-		
-		
-		
-		
-	
-
-		
+		}		
 	    return Phase0;
 		
 	}
 		
-		
-		
-	
-	
-	
-	public void writeintotxt(RealMatrix Phase1_Ini)
-	{
-	
-	// Write into output 			
-		
-		
-		
-		
-
-		
-	}
 }
 	
 	

@@ -50,7 +50,7 @@ public class Main {
 		double[][] ct_2=myReader.getCt_2();
 		double[][] A= myReader.getA();
 
-		SimplexOperation 
+	//	SimplexOperation 
 		
 		
 		System.out.println("Variables");
@@ -83,8 +83,9 @@ public class Main {
 		
 		
 		// Question 2 Phase1 Initial
+		RealMatrix Phase1;
 		PhaseIni phase1=new PhaseIni();
-		phase1.Create(n,m,A,b,ct_1);
+		Phase1=phase1.Create(n,m,A,b,ct_1);
 
 
 		
