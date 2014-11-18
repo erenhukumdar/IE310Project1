@@ -1,0 +1,18 @@
+clear all;
+close all;
+m=4;
+n=8;
+Ct=[3,4,2,1,0,0,0,0];
+A=[9.4,-8.8,3,4.2 ,1 ,0 ,0 ,0; 16.7 ,-15.9 ,5.5 ,8.1 ,0 ,1 ,0 ,0;-4.3,4.1,-1.5, -1.9, 0 ,0 ,1 ,0;-13.9 ,13.3 ,-4.5 ,-6.7 ,0 ,0 ,0 ,1];
+b=[20;100;200;40];
+xb=[2,3,5,6];
+xn=[1,4,7,8];
+B=A(:,xb)
+Binv=inv(B)
+N=A(:,xn)
+Cbt=Ct(xb)
+Cnt=Ct(xn)
+Result4=Binv*N
+Result5=Binv*b
+Result6=Cbt*Binv*b
+Result7=Cbt*Binv*N-Cnt
