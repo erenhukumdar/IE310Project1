@@ -87,7 +87,8 @@ public class Main {
 		// Question 2 Phase1 Initial
 		RealMatrix Phase1in;
 		PhaseIni phase1in=new PhaseIni();
-		Phase1in=phase1in.Create(n,m,A,b,ct_1);
+		double ct_1_RHS=0;
+		Phase1in=phase1in.Create(n, m, A, b, ct_1, ct_1_RHS);
 		
 		
 		// After initilization
@@ -102,23 +103,39 @@ public class Main {
 		phase1.writeConsole();
 		phase1.write("out1opt.txt");
 		
-		//Phase2 init operation 
-				RealMatrix newInit;
-				PhaseIni phase2Init=new PhaseIni();
-				phase2Init.basicVars(phase1.getA(), phase1.getPhaseIniVersion(), m, n);
 				
 		
 		
 		//Replace the the row 0 with new one for phase 2 !!! 
-//		for(int i=0;i<ct_2[0].length;i++){
-//			phase2in.setEntry(0, i, -1*ct_2[0][i]);
-//		}
+		for(int i=0;i<ct_2[0].length;i++){
+			phase2in.setEntry(0, i, -1*ct_2[0][i]);
+		}
+
+		//Phase2 init operation 
 		
+		//Created phase 2 ini with ct2 sent to make slack variable 0
+		RealMatrix newInit;
+		PhaseIni phase2Init=new PhaseIni();
+	
+	// gets the parameters	
+		double[][] ct_2_fg;
+		ct_2_fg=phase2in.getSubMatrix(0, 0, 0, n-1).getData();
 		
+		double ct_RHS_fg ;
+		ct_RHS_fg=phase2in.getEntry(0, n);
+		
+		double[][] A_fg;
+		A_fg=phase2in.getSubMatrix(1, m,0,n-1).getData();
+		
+		double[] b_fg;
+		b_fg=phase2in.getColumn(n);
+		
+		//returns input matrix for phase2
+		newInit=phase2Init.Create(n,m,A_fg,b_fg,ct_2_fg,ct_RHS_fg);
+		
+		//phase2 simplex operations
 		SimplexOperation phase2=new SimplexOperation();
-		//I have create new solid operation to create new rew zero
-		phase2.setSimplexOperation(n, m, phase2in, isMaximization);
-		phase2.createNewRowZero(phase2Init.getBasicVariables());		
+		phase2.setSimplexOperation(n, m, newInit, isMaximization);
 		phase2.artificialIgnore=ct_1[0];
 		phase2.write("out2ini.txt");
 		System.out.println("\nPhase2 Initial\n");
@@ -126,11 +143,11 @@ public class Main {
 		while(phase2.findPivotColumn()!=-1){
 			System.out.println("\n");
 			phase2.writeConsole();
-			phase2.iterateSimplexPlan(phase1.findPivotRow(phase1.findPivotColumn()), phase1.findPivotColumn());
+			phase2.iterateSimplexPlan(phase2.findPivotRow(phase2.findPivotColumn()), phase2.findPivotColumn());
 		}
 		System.out.println("\nPhase 2 Optimal\n");
-		phase1.writeConsole();
-		phase1.write("out2opt.txt");
+		phase2.writeConsole();
+		phase2.write("out2opt.txt");
 		
 
 

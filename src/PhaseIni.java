@@ -24,15 +24,18 @@ public class PhaseIni {
 	}
 
 	public RealMatrix Create(int n, int m, double[][] A, double[] b,
-			double[][] ct) {
+			double[][] ct,double ct_RHS) {
 		basicVariables = new int[m];
 		// Create Simplex Tableu
+		
 		double[][] Dummy = new double[m + 1][n + 2];
+		
 		// Add Z column
 		Dummy[0][0] = 1;
 		for (int i = 1; i <= m; i++) {
 			Dummy[i][0] = 0;
 		}
+		
 		// Add (-1).C Transpose for Phase 1
 		for (int i = 1; i <= n; i++) {
 			if (ct[0][i - 1] != 0) {
@@ -52,7 +55,7 @@ public class PhaseIni {
 
 		}
 		// Add RHS
-		Dummy[0][n + 1] = 0; // RHS of Row0
+		Dummy[0][n + 1] = ct_RHS; // RHS of Row0
 		for (int i = 1; i <= m; i++) {
 			Dummy[i][n + 1] = b[i - 1];
 		}
