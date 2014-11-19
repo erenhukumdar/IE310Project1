@@ -102,13 +102,23 @@ public class Main {
 		phase1.writeConsole();
 		phase1.write("out1opt.txt");
 		
+		//Phase2 init operation 
+				RealMatrix newInit;
+				PhaseIni phase2Init=new PhaseIni();
+				phase2Init.basicVars(phase1.getA(), phase1.getPhaseIniVersion(), m, n);
+				
+		
+		
 		//Replace the the row 0 with new one for phase 2 !!! 
-		for(int i=0;i<ct_2[0].length;i++){
-			phase2in.setEntry(0, i, -1*ct_2[0][i]);
-		}
+//		for(int i=0;i<ct_2[0].length;i++){
+//			phase2in.setEntry(0, i, -1*ct_2[0][i]);
+//		}
+		
 		
 		SimplexOperation phase2=new SimplexOperation();
+		//I have create new solid operation to create new rew zero
 		phase2.setSimplexOperation(n, m, phase2in, isMaximization);
+		phase2.createNewRowZero(phase2Init.getBasicVariables());		
 		phase2.artificialIgnore=ct_1[0];
 		phase2.write("out2ini.txt");
 		System.out.println("\nPhase2 Initial\n");

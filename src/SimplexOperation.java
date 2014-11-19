@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
 
@@ -14,6 +15,7 @@ public class SimplexOperation {
 	public boolean isMaximization;
 	public int m,n;
 	public double  [] artificialIgnore=null;
+	public RealVector oldRowZero;
 	
 	public SimplexOperation(int n, int m, double[][] A,double[][] RHS,double[][] ct,boolean isMaximization)
 	{
@@ -166,6 +168,45 @@ public class SimplexOperation {
 		}
 		return simplexTable;
 	}
+	
+//	public double[] getBasicVariables()
+//	{
+//		for (int i=0;i<n;i++)
+//		{
+//			RealVector 
+//			
+//		}
+//		
+//	}
+	
+	public RealMatrix getPhaseIniVersion()
+	{
+		
+		
+		double[][] initArray=new double[m+1][n+2];
+ 		double[] zData=new double[m];
+ 		initArray[0][0]=1;
+		for (int i=1;i<=m;i++)
+		{
+			initArray[0][i]=0;
+			
+		}
+		RealMatrix initMatrix = new Array2DRowRealMatrix(initArray);
+		for (int i=1;i<n+1;i++)
+		{
+			RealVector dummyVector = simplexTable.getColumnVector(i);
+			initMatrix.setColumnVector(i, dummyVector);
+			
+		}
+		return initMatrix;
+		
+	}
+	public double[][] getA()
+	{
+		return simplexTable.getSubMatrix(1, m,0,n-1).getData();
+		
+	}
+	
 	public void write(String output)
 	{
 		
@@ -177,7 +218,29 @@ public class SimplexOperation {
 		
 	}
 	
-
+	public void createNewRowZero(int[] basicVars)
+	{
+		double[] newRowZeroArray= new double[this.n+1];
+//		for (int i=0;i<newRowZeroArray.length;i++)
+//			newRowZeroArray[i]=0;
+		RealVector myNewRowZero= new ArrayRealVector(newRowZeroArray);
+		for(int j=0;j<basicVars.length;j++)
+		{
+			
+			myNewRowZero.setEntry(basicVars[j], 1);
+			
+			
+		}
+		for (int i=0;i<n;i++)
+		{
+			if (myNewRowZero.getEntry(i)!=1)
+			{
+				myNewRowZero.setEntry(i, 0);
+			}
+		}
+		oldRowZero=simplexTable.getColumnVector(0);
+		simplexTable.setRowVector(0, myNewRowZero);
+	}
 	public void writeConsole()
 	{
 		
