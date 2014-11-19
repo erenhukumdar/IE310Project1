@@ -86,12 +86,36 @@ public class Main {
 		
 		
 		// After initilization
-		SimplexOperation phase1=new SimplexOperation(n, m, Phase1in, true);
-		phase1.iterateSimplexPlan(phase1.findPivotRow(phase1.findPivotColumn()), phase1.findPivotColumn());
-		//phase1.iterateSimplexPlan(phase1.findPivotRow(phase1.findPivotColumn()), phase1.findPivotColumn());
-		//phase1.iterateSimplexPlan(phase1.findPivotRow(phase1.findPivotColumn()), phase1.findPivotColumn());
-		phase1.write("out1.txt");
+		SimplexOperation phase1=new SimplexOperation(n, m, Phase1in, isMaximization);
+		RealMatrix phase2in=Phase1in;
+		while(phase1.findPivotColumn()!=-1){
+			System.out.println("\n");
+			phase1.writeConsole();
+			phase2in=phase1.iterateSimplexPlan(phase1.findPivotRow(phase1.findPivotColumn()), phase1.findPivotColumn());
+		}
+		System.out.println("\nPhase 1 Optimal\n");
+		phase1.writeConsole();
+		phase1.write("out1opt.txt");
 		
+		//Replace the the row 0 with new one for phase 2 !!! 
+		for(int i=0;i<ct_2[0].length;i++){
+			phase2in.setEntry(0, i, -1*ct_2[0][i]);
+		}
+		
+		SimplexOperation phase2=new SimplexOperation();
+		phase2.setSimplexOperation(n, m, phase2in, isMaximization);
+		phase2.artificialIgnore=ct_1[0];
+		phase2.write("out2ini.txt");
+		System.out.println("\nPhase2 Initial\n");
+		phase2.writeConsole();
+		while(phase2.findPivotColumn()!=-1){
+			System.out.println("\n");
+			phase2.writeConsole();
+			phase2.iterateSimplexPlan(phase1.findPivotRow(phase1.findPivotColumn()), phase1.findPivotColumn());
+		}
+		System.out.println("\nPhase 2 Optimal\n");
+		phase1.writeConsole();
+		phase1.write("out2opt.txt");
 		
 
 

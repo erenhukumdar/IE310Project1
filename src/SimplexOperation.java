@@ -13,6 +13,7 @@ public class SimplexOperation {
 	public RealMatrix simplexTable;	
 	public boolean isMaximization;
 	public int m,n;
+	public double  [] artificialIgnore=null;
 	
 	public SimplexOperation(int n, int m, double[][] A,double[][] RHS,double[][] ct,boolean isMaximization)
 	{
@@ -32,7 +33,12 @@ public class SimplexOperation {
 		// there can be some bugs dueto the Z included into matrix. If there is a bug due to the z we should change write op.
 		//simplexTable=initMatrix;
 		simplexTable= initMatrix.getSubMatrix(0,m,1,n+1);
+		System.out.println("HEREEEEEE");
 		
+		
+	}
+	public SimplexOperation() {
+		// TODO Auto-generated constructor stub
 	}
 	public void setSimplexOperation(int n,int m,RealMatrix phase,boolean isMaximization)
 	{
@@ -65,6 +71,18 @@ public class SimplexOperation {
 		
 		RealVector zeroRow= simplexTable.getRowVector(0);
 		zeroRow = zeroRow.getSubVector(0, n);
+		
+		if(artificialIgnore!=null){
+			System.out.println("Ignoring Artificial Variables");
+			for(int i=0;i<artificialIgnore.length;i++){
+				if(artificialIgnore[i]!=0){
+					zeroRow.setEntry(i,(isMaximization ? 1:-1));
+				}
+			}
+		}
+		
+		
+		
 		if (isMaximization)
 		{
 			double minValue= zeroRow.getMinValue();
@@ -158,6 +176,18 @@ public class SimplexOperation {
 		writer.close();
 		
 	}
+	
+
+	public void writeConsole()
+	{
+		
+
+		Writer writer=new Writer();
+		writer.printConsoleMatrix(simplexTable);
+		
+	}
+
+	
 	
 
 }

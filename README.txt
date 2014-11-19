@@ -1,4 +1,4 @@
- * IE 310 Assignment I
+ * IE 310 Assignment II
  * Group Name: 'Noname'
  * GroupID: 4
  * See. README.txt if any questions occur
@@ -6,9 +6,13 @@
  * @author Sertaç Onal
  * @author Gorkem Karadeniz
  * 
- * This Program takes an 'input.txt' and returns an 'output.txt' (which has the results)
+ * This Program takes an 'input.txt' and returns:
+ * an 'out1ini.txt' (which has the initial phase 1 tableu)
+ * an 'out1opt.txt' (which has the optimal phase 1 tableu)
+ * an 'out2ini.txt' (which has the initial phase 2 tableu)
+ * an 'out2opt.txt' (which has the optimal phase 2 tableu)
  * 
- * If there is no input.txt Program will throw FileNotFoundException
+ * If there is no input.txt Program will throw FileNotFoundException !!!
  *
  
  IMPORTANT: The input file structure (especially the explanation lines) should be exactly the same (of course # of variables can change and/or the size of matrix C A or b can change)
