@@ -7,10 +7,10 @@
  * @author Gorkem Karadeniz
  * 
  * This Program takes an 'input.txt' and returns:
- * an 'out1ini.txt' (which has the initial phase 1 tableu)
- * an 'out1opt.txt' (which has the optimal phase 1 tableu)
- * an 'out2ini.txt' (which has the initial phase 2 tableu)
- * an 'out2opt.txt' (which has the optimal phase 2 tableu)
+ * an 'out1ini.txt' (which has the initial phase 1 tableau)
+ * an 'out1opt.txt' (which has the optimal phase 1 tableau)
+ * an 'out2ini.txt' (which has the initial phase 2 tableau)
+ * an 'out2opt.txt' (which has the optimal phase 2 tableau)
  * 
  * If there is no input.txt Program will throw FileNotFoundException !!!
  *

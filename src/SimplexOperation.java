@@ -33,7 +33,7 @@ public class SimplexOperation {
 		// there can be some bugs dueto the Z included into matrix. If there is a bug due to the z we should change write op.
 		//simplexTable=initMatrix;
 		simplexTable= initMatrix.getSubMatrix(0,m,1,n+1);
-		System.out.println("HEREEEEEE");
+		//System.out.println("HEREEEEEE");
 		
 		
 	}
@@ -73,7 +73,7 @@ public class SimplexOperation {
 		zeroRow = zeroRow.getSubVector(0, n);
 		
 		if(artificialIgnore!=null){
-			System.out.println("Ignoring Artificial Variables");
+			//System.out.println("Ignoring Artificial Variables");
 			for(int i=0;i<artificialIgnore.length;i++){
 				if(artificialIgnore[i]!=0){
 					zeroRow.setEntry(i,(isMaximization ? 1:-1));
